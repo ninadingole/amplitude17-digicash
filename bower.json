@@ -1,0 +1,33 @@
+{
+    "name": "expressproj"
+    , "description": ""
+    , "main": "index.js"
+    , "license": "ISC"
+    , "homepage": ""
+    , "ignore": [
+    "**/.*"
+    , "node_modules"
+    , "bower_components"
+    , "test"
+    , "tests"
+  ]
+    , "dependencies": {
+        "bootstrap": "^3.3.7"
+    }
+    , "overrides": {
+        "bootstrap": {
+            "main": [
+                "dist/js/bootstrap.js"
+                , "dist/css/bootstrap.min.css"
+                , "less/bootstrap.less"
+            ]
+        }
+        , "font-awesome": {
+            "main": [
+                "less/font-awesome.less"
+                , "css/font-awesome.min.css"
+                , "scss/font-awesome.scss"
+            ]
+        }
+    }
+}
