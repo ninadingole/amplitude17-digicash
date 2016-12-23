@@ -1,6 +1,6 @@
 #Books Application
 
-This is a sample application I designed to learn **nodejs** and **expressjs** framework.
+This is a sample application I designed to learn **nodejs**, **expressjs** and **mongodb** framework.
 
 Also I have added docker configurations so that you dont need to setup all the things after cloning the project just run
 
