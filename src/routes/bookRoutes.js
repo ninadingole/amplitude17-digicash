@@ -1,42 +1,38 @@
 var express = require('express');
 var bookRouter = express.Router();
-var books = [{
-        title: 'War and Peace'
-        , genre: 'Historical Fiction'
-        , author: 'Lev Nikolayevich Tolstoy'
-        , read: false
-}
-    , {
-        title: 'Les Miserables'
-        , genre: 'Historical Fiction'
-        , author: 'Victor Hugo'
-        , read: false
-            }];
-bookRouter.route('/').get(function (req, res) {
-    res.render('booksListView', {
-        title: 'Books'
-        , nav: [{
-            Link: '/Books'
-            , Text: 'Books'
-        }, {
-            Link: '/Authors'
-            , Text: 'Authors'
-        }]
-        , books: books
+var mongodb = require('mongodb').MongoClient;
+var objectid = require('mongodb').ObjectID;
+var router = function (nav) {
+    bookRouter.route('/').get(function (req, res) {
+        var url = "mongodb://localhost:27017/libraryApp";
+        mongodb.connect(url, function (err, db) {
+            var collection = db.collection('books');
+            collection.find({}).toArray(function (err, results) {
+                res.render('booksListView', {
+                    title: 'Books'
+                    , nav: nav
+                    , books: results
+                });
+            });
+        });
     });
-});
-bookRouter.route('/:id').get(function (req, res) {
-    var id = req.params.id;
-    res.render('bookView', {
-        title: 'Book View'
-        , book: books[id]
-        , nav: [{
-            Link: '/Books'
-            , Text: 'Books'
-        }, {
-            Link: '/Authors'
-            , Text: 'Authors'
-        }]
+    bookRouter.route('/:id').get(function (req, res) {
+        var id = new objectid(req.params.id);
+        var url = "mongodb://localhost:27017/libraryApp";
+        mongodb.connect(url, function (err, db) {
+            var collection = db.collection('books');
+            collection.findOne({
+                _id: id
+            }, function (err, results) {
+                console.log(results);
+                res.render('bookView', {
+                    title: 'Books'
+                    , nav: nav
+                    , book: results
+                });
+            });
+        });
     });
-});
-module.exports = bookRouter;
+    return bookRouter;
+};
+module.exports = router;
