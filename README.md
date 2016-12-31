@@ -15,3 +15,10 @@ and then,
 To stop the cotainer:
 
 `docker stop bookapp`
+
+**Note**
+With few of my recent updates to the code the docker build is not working so you can start the application using
+
+`npm start` or `npm serve` as a gulp task.
+
+I will update the docker file to manage both the application and mongodb instance soon.

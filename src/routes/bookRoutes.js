@@ -4,7 +4,7 @@ var mongodb = require('mongodb').MongoClient;
 var objectid = require('mongodb').ObjectID;
 var router = function (nav) {
     bookRouter.route('/').get(function (req, res) {
-        var url = "mongodb://localhost:27017/libraryApp";
+        var url = process.env.MONGODB_URL;
         mongodb.connect(url, function (err, db) {
             var collection = db.collection('books');
             collection.find({}).toArray(function (err, results) {
