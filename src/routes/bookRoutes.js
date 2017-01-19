@@ -9,9 +9,9 @@ var router = function (nav) {
             var collection = db.collection('books');
             collection.find({}).toArray(function (err, results) {
                 res.render('booksListView', {
-                    title: 'Books'
-                    , nav: nav
-                    , books: results
+                    title: 'Books',
+                    nav: nav,
+                    books: results
                 });
             });
         });
@@ -26,9 +26,9 @@ var router = function (nav) {
             }, function (err, results) {
                 console.log(results);
                 res.render('bookView', {
-                    title: 'Books'
-                    , nav: nav
-                    , book: results
+                    title: 'Books',
+                    nav: nav,
+                    book: results
                 });
             });
         });
