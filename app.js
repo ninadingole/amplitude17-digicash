@@ -29,7 +29,6 @@ var authApi = require('./src/routes/auth');
 
 var dummyCustomerRoute = require('./src/routes/dummyCustomers.js')(Customer);
 
-app.use('/qrcash/api/');
 
 app.use('/dummyCustomer', dummyCustomerRoute);
 app.use('/list', listRoute);
