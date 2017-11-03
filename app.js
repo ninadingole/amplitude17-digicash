@@ -22,6 +22,7 @@ app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
 
+
 var Customer = require('./src/models/customerModel');
 var listRoute = require('./src/routes/listAllQr.js')(nav);
 var customerRoute = require('./src/routes/customer.js')(nav, Customer);
@@ -29,8 +30,8 @@ var authApi = require('./src/routes/auth');
 
 var dummyCustomerRoute = require('./src/routes/dummyCustomers.js')(Customer);
 
-
-app.use('/dummyCustomer', dummyCustomerRoute);
+app.use('/qrcode/api/', authApi);
+app.use('/mockcustomer', dummyCustomerRoute);
 app.use('/list', listRoute);
 app.use('/add', customerRoute);
 app.use('/generateqr', customerRoute);

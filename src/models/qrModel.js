@@ -5,6 +5,9 @@ var qrModel = new Schema({
     qrId: {
         type: String
     },
+    name: {
+        type: String
+    },
     customerId: {
         type: String
     },
