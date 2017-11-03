@@ -1,22 +1,28 @@
 var express = require('express');
-var Customer = require('../models/customerModel');
-var QrModel = require('../models/qrModel');
-
-var authRouter = express.Router();
+var mongoose = require('mongoose');
+var qrModel = require('../models/qrModel');
 
 var router = function() {
-    authRouter.route('/verifyqr/:id').get(function(req, res) {
-        QrModel.findById(req.params.id, function(err, qrcode) {
+    var apirouter = express.Router();
+
+
+    apirouter.route('/:id').get(function(req, res) {
+        qrModel.findOne({
+            'qrId': req.params.id
+        }, function(err, qrcode) {
             if (err) {
                 res.status(500).send(err);
             } else {
-                res.json({
-                    qrId: qrcode.qrId,
-                    name: qrcode.name
+                res.status(200).json({
+                    'qrId': qrcode.qrId,
+                    'name': qrcode.name
                 });
             }
         });
     });
+
+
+    return apirouter;
 };
 
 module.exports = router;

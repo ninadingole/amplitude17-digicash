@@ -9,6 +9,6 @@ var router = function(Customer) {
     dummyCustomerRoute.route('/list').get(customerController.getAll);
 
     return dummyCustomerRoute;
-}
+};
 
 module.exports = router;
