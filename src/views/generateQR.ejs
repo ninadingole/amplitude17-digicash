@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>
+        <%=title%>
+    </title>
+    <meta name="generator" content="Bootply" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <!-- bower:css -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <!-- endbower -->
+    <!-- bower:js -->
+    <script src="/lib/jquery/dist/jquery.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- endbower -->
+    <!--inject:css-->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <!--endinject-->
+    <!--inject:js-->
+    <script src="/js/bootstrap.min.js"></script>
+    <!--endinject-->
+    <!--[if lt IE 9]>
+			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+</head>
+
+<body>
+    <header class="navbar navbar-bright navbar-fixed-top" role="banner">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/" class="navbar-brand">Home</a>
+            </div>
+            <nav class="collapse navbar-collapse" role="navigation">
+                <ul class="nav navbar-nav">
+                    <% for(var i=0; i < nav.length; i++) { %>
+                        <li>
+                            <a href="<%=nav[i].Link %>">
+                                <%=nav[i].Text%>
+                            </a>
+                        </li>
+                        <%}%>
+                </ul>
+                <ul class="nav navbar-right navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-search"></i>
+                        </a>
+                        <ul class="dropdown-menu" style="padding:12px;">
+                            <form class="form-inline">
+                                <button type="submit" class="btn btn-default pull-right">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                                <input type="text" class="form-control pull-left" placeholder="Search"> </form>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <div id="masthead">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7">
+                    <h1>Add Customer Qr
+                        <p class="lead"></p>
+                    </h1>
+                </div>
+                <div class="col-md-5">
+                    <div class="well well-lg">
+                        <div class="row">
+                            <div class="col-sm-12"> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /cont -->
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="top-spacer"> </div>
+                </div>
+            </div>
+        </div>
+        <!-- /cont -->
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel">
+                    <div class="panel-body">
+                        <div class="col-md-6">
+                            <form id="qr-form" class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="accno" class="col-sm-2 control-label">Account Number</label>
+                                    <div class="col-sm-10">
+                                        <% if(customer) { %>
+                                            <input type="text" name="accno" class="form-control" id="accno" placeholder="AccountNumber" value="<%= customer.accountNumber%>"
+                                                disabled>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="ifsc" class="col-sm-2 control-label">IFSC</label>
+                                    <div class="col-sm-10">
+                                        <% if(customer) { %>
+                                            <input type="text" name="ifsc" class="form-control" id="ifsc" placeholder="IFSC code" value="<%= customer.ifsc %>" disabled>
+                                            <% } %>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="amount" class="col-sm-2 control-label">Amount</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" name="amount" class="form-control" id="amount" placeholder="Amount" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="mobilenumber" class="col-sm-2 control-label">Mobile Number</label>
+                                    <div class="col-sm-10">
+                                        <input type="tel" name="phone" class="form-control" id="phone" placeholder="Mobile Number" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-2 control-label">Email Address</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="abc@xyz.com" required>
+                                    </div>
+                                    <input type="hidden" id="customerId" value="<%= customer._id%>" />
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button id="submit-btn" type="submit" class="btn btn-default">Generate</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="qr-image">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#qr-form').submit(function(e){
+                e.preventDefault();
+            });
+            $("#submit-btn").off().click(function () {
+
+                $.ajax({
+                    url: 'http://' + window.location.host + '/generateqr',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $('#qr-form').serialize(),
+                    success: function (data) {
+
+                        $('#submit-btn').attr('disabled', true);
+                        var qrimg = $('<img />').attr('src',
+                            'https://chart.googleapis.com/chart?cht=qr&chl=' + data.transaction_id +
+                            '&chs=320x320&chld=L|1');
+                        $('#qr-image').empty();
+                        $('#qr-image').append(qrimg);
+                    }
+                });
+            });
+        });
+    </script>
+</body>
