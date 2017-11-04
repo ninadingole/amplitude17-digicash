@@ -22,6 +22,13 @@ var qrModel = new Schema({
     },
     phone: {
         type: String
+    },
+    imageUrl: {
+        type: String
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -41,8 +41,14 @@
                 <a href="/" class="navbar-brand">Home</a>
             </div>
             <nav class="collapse navbar-collapse" role="navigation">
-                <ul class="nav navbar-nav">
-
+               <ul class="nav navbar-nav">
+                    <% for(var i=0; i < nav.length; i++) { %>
+                        <li>
+                            <a href="<%=nav[i].Link %>">
+                                <%=nav[i].Text%>
+                            </a>
+                        </li>
+                        <%}%>
                 </ul>
                 <ul class="nav navbar-right navbar-nav">
                     <li class="dropdown">
@@ -99,13 +105,12 @@
                                 <br>
                                 <div class="col-md-2 col-sm-3 text-center">
                                     <a class="story-title" href="#">
-                                        <img alt="" src="http://api.randomuser.me/portraits/thumb/men/58.jpg" style="width:100px;height:100px"
-                                            class="img-circle">
+                                        <img alt="" src="https://chart.googleapis.com/chart?cht=qr&chl=<%=qrcodes[i].qrId%>&chs=320x320&chld=L|1" style="width:100px;height:100px" />
                                     </a>
                                 </div>
                                 <div class="col-md-10 col-sm-9">
                                     <h3>
-                                        <%=qrcodes[i].qrId%>
+                                        <a href="/qr/<%=qrcodes[i]._id%>"><%=qrcodes[i].qrId%></a>
                                     </h3>
                                     <div class="row">
                                         <div class="col-xs-9">
@@ -113,11 +118,6 @@
                                                 <span class="label label-default">
                                                     <%=qrcodes[i].name %>
                                                 </span>
-                                            </h4>
-                                            <h4>
-                                                <small style="font-family:courier,'new courier';" class="text-muted">
-                                                    <a href="/qr/<%=qrcodes[i]._id%>" class="text-muted">Read More</a>
-                                                </small>
                                             </h4>
                                         </div>
                                         <div class="col-xs-3"></div>
@@ -141,15 +141,7 @@
     <div class="container" id="footer">
         <div class="row">
             <div class="col col-sm-12">
-                <h1>Follow Us</h1>
-                <div class="btn-group">
-                    <a class="btn btn-twitter btn-lg" href="#">
-                        <i class="icon-twitter icon-large"></i> Twitter</a>
-                    <a class="btn btn-facebook btn-lg" href="#">
-                        <i class="icon-facebook icon-large"></i> Facebook</a>
-                    <a class="btn btn-google-plus btn-lg" href="#">
-                        <i class="icon-google-plus icon-large"></i> Google+</a>
-                </div>
+               
             </div>
         </div>
     </div>
@@ -159,20 +151,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <ul class="list-inline">
-                        <li>
-                            <i class="icon-facebook icon-2x"></i>
-                        </li>
-                        <li>
-                            <i class="icon-twitter icon-2x"></i>
-                        </li>
-                        <li>
-                            <i class="icon-google-plus icon-2x"></i>
-                        </li>
-                        <li>
-                            <i class="icon-pinterest icon-2x"></i>
-                        </li>
-                    </ul>
+                    
                 </div>
                 <div class="col-sm-6">
                     <p class="pull-right">Built with

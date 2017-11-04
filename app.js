@@ -8,10 +8,10 @@ db.Promise = global.Promise;
 
 var port = process.env.PORT || 5000;
 var nav = [{
-    Link: '/add',
+    Link: '/mockcustomer/list',
     Text: 'Add New QR'
 }, {
-    Link: '/list',
+    Link: '/qr/list',
     Text: 'List All Qr codes'
 }];
 
@@ -27,14 +27,12 @@ var Customer = require('./src/models/customerModel');
 var listRoute = require('./src/routes/listAllQr.js')(nav);
 var customerRoute = require('./src/routes/customer.js')(nav, Customer);
 var authApi = require('./src/routes/auth.js')();
-var qrRoute = require('./src/routes/listAllQr')();
 
 var dummyCustomerRoute = require('./src/routes/dummyCustomers.js')(Customer);
 
 app.use('/api', authApi);
-app.use('/qr', qrRoute);
+app.use('/qr', listRoute);
 app.use('/mockcustomer', dummyCustomerRoute);
-app.use('/list', listRoute);
 app.use('/add', customerRoute);
 app.use('/generateqr', customerRoute);
 app.get('/', function(req, res) {

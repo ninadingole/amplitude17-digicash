@@ -6,6 +6,7 @@ var gpc = require('generate-pincode');
 var AWS = require('aws-sdk');
 AWS.config.region = 'us-west-2';
 var sns = new AWS.SNS();
+var emailService = require('../services/emailService')();
 
 
 var router = function(nav, Customer) {
@@ -19,6 +20,7 @@ var router = function(nav, Customer) {
         var qrCode = new qrModel(req.body);
         console.log(qrCode.phone);
         qrCode.qrId = uuidv4();
+        qrCode.imageUrl = 'https://chart.googleapis.com/chart?cht=qr&chl=' + qrCode.qrId + '&chs=320x320&chld=L|1';
         qrCode.pin = gpc(6);
         var params = {
             Message: 'Your Pin for Qr Cash is ' + qrCode.pin + ' form Amount: ' + qrCode.amount + 'INR.',
@@ -35,9 +37,9 @@ var router = function(nav, Customer) {
                     res.status(500).send(err);
                 }
             });
-
+            emailService.sendEmail(qrCode);
             res.json({
-                'transaction_id': qrCode.qrId,
+                'imageUrl': qrCode.imageUrl,
             });
         });
 
