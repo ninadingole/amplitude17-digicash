@@ -12,10 +12,14 @@ var router = function() {
         }, function(err, qrcode) {
             if (err) {
                 res.status(500).send(err);
-            } else {
+            } else if (qrcode) {
                 res.status(200).json({
                     'qrId': qrcode.qrId,
                     'name': qrcode.name
+                });
+            } else {
+                res.status(404).json({
+                    'status': 'NOT_FOUND'
                 });
             }
         });
